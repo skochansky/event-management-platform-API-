@@ -23,12 +23,12 @@ app.add_middleware(
 
 
 @app.get("/")
-async def root():
+async def root() -> dict[str, str]:
     """Root endpoint."""
     return {"message": "Welcome to Event Management Platform API"}
 
 
 @app.get("/health")
-async def health_check():
+async def health_check() -> dict[str, str]:
     """Health check endpoint."""
     return {"status": "healthy"}
