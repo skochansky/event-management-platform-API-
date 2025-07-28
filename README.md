@@ -71,9 +71,26 @@ poetry run ruff check .
 # Type checking
 poetry run mypy .
 
+# Security checks
+poetry run bandit -r app/
+
 # Run all checks
-poetry run ruff check . && poetry run black --check . && poetry run isort --check-only .
+poetry run ruff check . && poetry run black --check . && poetry run isort --check-only . && poetry run mypy .
 ```
+
+### Pre-commit Hooks
+
+Install pre-commit hooks to automatically run code quality checks:
+
+```bash
+poetry run pre-commit install
+```
+
+This will run the following checks before each commit:
+- Code formatting (black, isort)
+- Linting (ruff)
+- Type checking (mypy)
+- Basic file checks
 
 ### Testing
 
@@ -115,14 +132,44 @@ The application uses Pydantic Settings for configuration. Key settings include:
 - `ALLOWED_HOSTS`: CORS allowed origins
 - `ENVIRONMENT`: Environment (development/staging/production)
 
+## CI/CD
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+### CI Pipeline
+
+The CI pipeline runs on every push and pull request and includes:
+
+- **Testing**: pytest with coverage reporting
+- **Linting**: ruff, black, isort
+- **Type Checking**: mypy
+- **Security**: bandit security analysis
+- **Dependency Review**: automated dependency vulnerability scanning
+- **Build**: package building for releases
+
+### Deployment
+
+Deployment is triggered by version tags (e.g., `v1.0.0`):
+
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+### Coverage Reports
+
+Coverage reports are automatically generated and uploaded to Codecov. View them at:
+https://codecov.io/gh/your-username/event-management-platform-API-
+
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run code quality checks
+4. Run code quality checks: `poetry run pre-commit run --all-files`
 5. Add tests for new functionality
-6. Submit a pull request
+6. Ensure all CI checks pass
+7. Submit a pull request
 
 ## License
 
