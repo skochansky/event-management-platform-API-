@@ -30,9 +30,6 @@ jobs:
     - name: Run tests
       run: poetry run pytest
 
-    - name: Build package
-      run: poetry build
-
     # Add deployment steps here when ready
     # Examples:
     # - name: Deploy to Heroku
