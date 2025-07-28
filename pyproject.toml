@@ -1,0 +1,82 @@
+[tool.poetry]
+name = "event-management-platform-api"
+version = "0.1.0"
+description = "A modern API for event management platform"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.116.1"
+uvicorn = "^0.35.0"
+sqlalchemy = "^2.0.41"
+alembic = "^1.16.4"
+psycopg2-binary = "^2.9.10"
+python-jose = "^3.5.0"
+passlib = "^1.7.4"
+python-multipart = "^0.0.20"
+pydantic = "^2.11.7"
+pydantic-settings = "^2.10.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pytest-asyncio = "^1.1.0"
+black = "^25.1.0"
+isort = "^6.0.1"
+mypy = "^1.17.0"
+ruff = "^0.4.2"
+pre-commit = "^4.2.0"
+httpx = "^0.28.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.black]
+target-version = ['py313']
+line-length = 88
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
